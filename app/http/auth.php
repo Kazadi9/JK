@@ -32,9 +32,14 @@ if (isset($_POST['phone']) && isset($_POST['password'])) {
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['name'] = $user['name'];
                 $_SESSION['user_id'] = $user['user_id'];
+                $_SESSION['role'] = $user['role']; // Store role in session
 
-                # Redirect to home page
-                header("Location: ../../dashboard/index.php");
+                # Check user role and redirect accordingly
+                if ($user['role'] === 'admin') {
+                    header("Location: ../../dashboard/dashbord.php"); // Redirect admin to dashboard
+                } else {
+                    header("Location: ../../dashboard/index.php"); // Redirect user to home
+                }
                 exit;
             } else {
                 $em = "Numéro ou mot de passe incorrect";

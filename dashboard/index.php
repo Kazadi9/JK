@@ -62,12 +62,6 @@ if (isset($_SESSION['user_id'])) {
                         <span>Message</span>
                     </a>
                 </li>
-                <li>
-                     <a href="#">
-                        <i class="fa fa-cog" aria-hidden="true"></i>
-                        <span>Paramètres</span>
-                    </a>
-                </li>
 
                 <li>
                     <a href="#">
