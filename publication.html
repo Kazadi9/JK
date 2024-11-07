@@ -1,0 +1,237 @@
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Publications</title>
+	<style>
+:root {
+  --primary-color: #3498db;
+  --secondary-color: #2c3e50;
+  --accent-color: #e74c3c;
+  --background-color: #ecf0f1;
+  --text-color: #34495e;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background: linear-gradient(to bottom right, #f0f4ff, #e6eeff);
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.post-form {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+.post-input {
+  width: 100%;
+  min-height: 100px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+.post-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.upload-btn {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.post-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.post {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.post-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.post-info {
+  font-size: 0.9em;
+  color: #666;
+}
+
+.post-content {
+  margin-bottom: 15px;
+}
+
+.post-image {
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+.post-actions-bottom {
+  display: flex;
+  gap: 15px;
+  color: #666;
+  font-size: 0.9em;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+.comments-section {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+}
+
+.comment {
+  padding: 8px 0;
+  font-size: 0.9em;
+}
+
+.comment-form {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.comment-input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.submit-comment {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="post-form">
+    <textarea class="post-input" placeholder="Qu'avez-vous en tête ?"></textarea>
+    <div class="post-actions">
+      <button class="upload-btn">📷 Photo</button>
+      <button class="upload-btn">🎥 Vidéo</button>
+      <button class="upload-btn" style="margin-left: auto;">Publier</button>
+    </div>
+  </div>
+
+  <div class="post-feed">
+    <div class="post">
+      <div class="post-header">
+        <img src="/a/48e7dfac-7572-45ae-b861-c354b12e9fa3" alt="Photo de profil" class="post-avatar">
+        <div class="post-info">
+          <strong>Jean Dupont</strong>
+          <div>Il y a 2 heures</div>
+        </div>
+      </div>
+      <div class="post-content">
+        Bonjour à tous ! Voici ma dernière photo de voyage 🌅
+      </div>
+      <img src="/a/48e7dfac-7572-45ae-b861-c354b12e9fa3" alt="Photo de paysage" class="post-image">
+      <div class="post-actions-bottom">
+        <button class="action-btn">❤️ J'aime (24)</button>
+        <button class="action-btn">💬 Commenter (5)</button>
+        <button class="action-btn">📤 Partager</button>
+      </div>
+      <div class="comments-section">
+        <div class="comment">
+          <strong>Marie Martin</strong> Magnifique photo !
+        </div>
+        <div class="comment">
+          <strong>Pierre Durand</strong> Quel endroit merveilleux !
+        </div>
+        <form class="comment-form">
+          <input type="text" class="comment-input" placeholder="Écrire un commentaire...">
+          <button type="submit" class="submit-comment">Envoyer</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const postForm = document.querySelector('.post-form');
+  const postInput = document.querySelector('.post-input');
+  const commentForms = document.querySelectorAll('.comment-form');
+  
+  postForm.querySelector('button:last-child').addEventListener('click', (e) => {
+    e.preventDefault();
+    if (postInput.value.trim()) {
+      alert('Publication envoyée !');
+      postInput.value = '';
+    }
+  });
+
+  commentForms.forEach(form => {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const input = form.querySelector('.comment-input');
+      if (input.value.trim()) {
+        alert('Commentaire envoyé !');
+        input.value = '';
+      }
+    });
+  });
+
+  const actionBtns = document.querySelectorAll('.action-btn');
+  actionBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.textContent.includes('J\'aime')) {
+        btn.classList.toggle('liked');
+      }
+    });
+  });
+});
+</script>
+</body></html>
