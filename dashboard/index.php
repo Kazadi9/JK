@@ -22,7 +22,6 @@ if (isset($_SESSION['user_id'])) {
     exit;
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -46,30 +45,28 @@ if (isset($_SESSION['user_id'])) {
     <div class="body">
         <nav class="side-bar">
             <div class="user-p">
-                <img src="<?php echo htmlspecialchars('../uploads/' . $user['p_p']); ?>" alt="p_p"><
-    <h4><?php echo htmlspecialchars($user['name']); ?><h4><?php echo htmlspecialchars($user['username']); ?></h4>
+                <img src="<?php echo htmlspecialchars('../uploads/' . $user['p_p']); ?>" alt="p_p">
+                <h4><?php echo htmlspecialchars($user['name']); ?></h4>
+                <h4><?php echo htmlspecialchars($user['username']); ?></h4>
             </div>
             <ul>
                 <li>
-                    <a href="../post.php">
+                    <a href="../post.php" onclick="load_section('../post.php'); return false;">
                         <i class="fa fa-edit" aria-hidden="true"></i>
                         <span>Publication</span>
                     </a>
                 </li>
                 <li>
-                    <a href="../chat.php">
+                    <a href="../home/php" onclick="load_section('../home.php'); return false;">
                         <i class="fa fa-envelope-o" aria-hidden="true"></i>
                         <span>Message</span>
                     </a>
                 </li>
-
                 <li>
-                    <a href="#">
+                    <a href="about.html" onclick="load_section('about.html'); return false;">
                         <i class="fa fa-info-circle" aria-hidden="true"></i>
                         <span>A propos</span>
                     </a>
-                </li>
-                
                 </li>
                 <li>
                     <a href="../logout.php">
@@ -86,7 +83,7 @@ if (isset($_SESSION['user_id'])) {
     </div>
 
     <script>
-        function loadContent(page) {
+        function load_section(page) {
             var xhr = new XMLHttpRequest();
             xhr.open('GET', page, true);
             xhr.onload = function() {

@@ -7,23 +7,14 @@ if (isset($_POST['section'])) {
     
     // Charger le contenu en fonction de la section
     switch ($section) {
-        case 'dashboard':
-            echo '<h2>Dashboard</h2><p>Contenu du tableau de bord ici.</p>';
+        case 'Publication':
+            echo '<h2>Publication</h2><p>Contenu mise en ligne ici.</p>';
             break;
         case 'message':
             echo '<h2>Messages</h2><p>Voici vos messages.</p>';
             break;
-        case 'comment':
-            echo '<h2>Commentaires</h2><p>Liste des commentaires.</p>';
-            break;
-        case 'about':
-            echo '<h2>À propos</h2><p>Informations sur FAG Ministries.</p>';
-            break;
-        case 'settings':
-            echo '<h2>Paramètres</h2><p>Paramètres du compte ici.</p>';
-            break;
-        default:
-            echo '<p>Section non trouvée.</p>';
+        case 'A propos':
+            echo '<h2>Appropos</h2><p>FAMILLE GUERISONS DE NATIONS</p>;
             break;
     }
 } else {
