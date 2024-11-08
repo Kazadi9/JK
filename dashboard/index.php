@@ -57,7 +57,7 @@ if (isset($_SESSION['user_id'])) {
                     </a>
                 </li>
                 <li>
-                    <a href="../home/php" onclick="load_section('../home.php'); return false;">
+                    <a href="../home.php" return false;">
                         <i class="fa fa-envelope-o" aria-hidden="true"></i>
                         <span>Message</span>
                     </a>

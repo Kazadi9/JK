@@ -1,0 +1,224 @@
+<html>
+  <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gestion des Publications</title>
+<style>
+:root {
+  --primary-color: #3498db;
+  --secondary-color: #2c3e50;
+  --background-color: #f0f2f5;
+  --danger-color: #e74c3c;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.add-post-btn {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.posts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.post {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 20px;
+}
+
+.post-author {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.post-time {
+  color: #666;
+  font-size: 0.9em;
+  margin-bottom: 15px;
+}
+
+.post-content {
+  margin-bottom: 15px;
+}
+
+.post-media {
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  margin: 10px 0;
+}
+
+.delete-btn {
+  background: var(--danger-color);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 500px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input, .form-group textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="post-header">
+    <h1>Gestion des Publications</h1>
+    <button class="add-post-btn" onclick="openModal()">Nouvelle Publication</button>
+  </div>
+
+  <div class="posts-container" id="posts-list"></div>
+</div>
+
+<div class="modal" id="postModal">
+  <div class="modal-content">
+    <h2>Nouvelle Publication</h2>
+    <form id="postForm">
+      <div class="form-group">
+        <label>Nom</label>
+        <input type="text" id="nom" required>
+      </div>
+      <div class="form-group">
+        <label>Prénom</label>
+        <input type="text" id="prenom" required>
+      </div>
+      <div class="form-group">
+        <label>Contenu</label>
+        <textarea id="contenu" rows="4" required></textarea>
+      </div>
+      <div class="form-group">
+        <label>Media (Photo/Vidéo)</label>
+        <input type="file" id="media" accept="image/*,video/*">
+      </div>
+      <div class="modal-buttons">
+        <button type="button" onclick="closeModal()" style="background: #ccc;">Annuler</button>
+        <button type="submit" style="background: var(--primary-color); color: white;">Publier</button>
+      </div>
+    </form>
+  </div>
+</div>
+</body></html>
+<script>
+let posts = [];
+let currentId = 1;
+
+function openModal() {
+  document.getElementById('postModal').style.display = 'block';
+}
+
+function closeModal() {
+  document.getElementById('postModal').style.display = 'none';
+  document.getElementById('postForm').reset();
+}
+
+function deletePost(id) {
+  posts = posts.filter(post => post.id !== id);
+  renderPosts();
+}
+
+function renderPosts() {
+  const container = document.getElementById('posts-list');
+  container.innerHTML = posts.map(post => `
+    <div class="post">
+      <div class="post-author">${post.prenom} ${post.nom}</div>
+      <div class="post-time">${post.timestamp}</div>
+      <div class="post-content">${post.contenu}</div>
+      ${post.mediaUrl ? `
+        ${post.mediaType.startsWith('image') 
+          ? `<img src="${post.mediaUrl}" alt="Media posté par ${post.prenom} ${post.nom}" class="post-media">`
+          : `<video src="${post.mediaUrl}" controls class="post-media"></video>`
+        }
+      ` : ''}
+      <button class="delete-btn" onclick="deletePost(${post.id})">Supprimer</button>
+    </div>
+  `).join('');
+}
+
+document.getElementById('postForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const mediaFile = document.getElementById('media').files[0];
+  const newPost = {
+    id: currentId++,
+    nom: document.getElementById('nom').value,
+    prenom: document.getElementById('prenom').value,
+    contenu: document.getElementById('contenu').value,
+    timestamp: new Date().toLocaleString(),
+    mediaUrl: mediaFile ? URL.createObjectURL(mediaFile) : null,
+    mediaType: mediaFile ? mediaFile.type : null
+  };
+  posts.unshift(newPost);
+  renderPosts();
+  closeModal();
+});
+
+// Initial render
+renderPosts();
+</script>

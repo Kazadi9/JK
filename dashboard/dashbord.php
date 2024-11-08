@@ -51,7 +51,7 @@ if (isset($_SESSION['user_id'])) {
             </div>
             <ul>
                 <li>
-                    <a href="../post.php">
+                    <a href="gestion publication.html" onclick="sectionContent('gestion publication.html'); return false;">
                         <i class="fa fa-edit" aria-hidden="true"></i>
                         <span>Gestion Publication</span>
                     </a>
@@ -92,7 +92,7 @@ if (isset($_SESSION['user_id'])) {
     </div>
 
     <script>
-        function loadContent(page) {
+        function sectionContent(page) {
             var xhr = new XMLHttpRequest();
             xhr.open('GET', page, true);
             xhr.onload = function() {

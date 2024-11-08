@@ -102,7 +102,7 @@
                <div class="alert alert-info 
     				            text-center">
 				   <i class="fa fa-comments d-block fs-big"></i>
-	               No messages yet, Start the conversation
+	               vous n'avez pas de message, commencer une conversation
 			   </div>
     	   	<?php } ?>
     	   </div>
